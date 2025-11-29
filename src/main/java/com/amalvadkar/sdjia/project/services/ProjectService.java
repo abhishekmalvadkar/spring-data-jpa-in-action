@@ -29,10 +29,15 @@ public class ProjectService {
         return ProjectFactory.responseFrom(savedProjectEntity);
     }
 
-    public List<FetchProjectResponse> fetchProjects() {
+    public List<FetchProjectResponse> fetchProject() {
         List<ProjectEntity> allProjects = projectRepo.findAll();
         log.info("total projects :{}", allProjects.size());
         return ProjectFactory.fromEntities(allProjects);
+    }
+
+    public ProjectCreateResponse fetchProject(String projectName) {
+        ProjectEntity projectEntity = projectRepo.findByNameOrThrow(projectName);
+        return ProjectFactory.responseFrom(projectEntity);
     }
 
 }

@@ -54,7 +54,12 @@ class ProjectServiceTest {
 
     @Test
     void should_fetch_projects() {
-        assertThat(projectService.fetchProjects()).hasSize(2);
+        assertThat(projectService.fetchProject()).hasSize(2);
+    }
+
+    @Test
+    void should_fetch_project_projectName() {
+        assertThat(projectService.fetchProject("Hospitality")).isNotNull();
     }
 
 }
