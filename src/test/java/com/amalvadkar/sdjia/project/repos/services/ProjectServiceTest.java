@@ -10,6 +10,9 @@ import com.amalvadkar.sdjia.project.services.ProjectService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.quickperf.junit5.QuickPerfTest;
+import org.quickperf.sql.annotation.ExpectInsert;
+import org.quickperf.sql.annotation.ExpectSelect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -20,6 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
+@QuickPerfTest
 class ProjectServiceTest {
 
     @Autowired
@@ -36,6 +40,8 @@ class ProjectServiceTest {
     }
 
     @Test
+    @ExpectSelect(1)
+    @ExpectInsert(1)
     void should_create_new_project() {
         ProjectCreateRequest projectCreateRequest = ProjectFactory.defaultCreateRequest();
         ProjectCreateResponse newCreatedProjectResponse = projectService.createProject(projectCreateRequest);
